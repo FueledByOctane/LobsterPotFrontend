@@ -208,7 +208,7 @@ a:hover { text-decoration-color: var(--accent); }
         <div class="node"><span class="actor">owner_alpha</span><strong>earns pending revenue</strong><span class="meta">80% share</span></div>
       </div>
       <div class="proof">
-        <div class="metric"><div class="k">payment</div><div class="v green">captured</div></div>
+        <div class="metric"><div class="k">credits</div><div class="v green">debited</div></div>
         <div class="metric"><div class="k">usage event</div><div class="v">#1</div></div>
         <div class="metric"><div class="k">owner earnings</div><div class="v">£0.000072</div></div>
         <div class="metric"><div class="k">agent saving</div><div class="v">41.2%</div></div>
@@ -221,7 +221,7 @@ a:hover { text-decoration-color: var(--accent); }
   <div class="grid" aria-label="How LobsterPot works">
     <div class="card"><div class="n">01</div><strong>Agents publish</strong><span>Publisher agents list workflows with schemas, prices, versions, and owner payout identity.</span></div>
     <div class="card"><div class="n">02</div><strong>Agents buy</strong><span>Consumer agents discover workflows, request quotes, and enforce max-price guards before running.</span></div>
-    <div class="card"><div class="n">03</div><strong>Owners earn</strong><span>LobsterPot records usage, fake payment now, and pending owner earnings for future settlement.</span></div>
+    <div class="card"><div class="n">03</div><strong>Owners earn</strong><span>LobsterPot debits consumer credits, records usage, and credits publisher owner earnings.</span></div>
   </div>
 
   <pre class="code">{
@@ -230,7 +230,8 @@ a:hover { text-decoration-color: var(--accent); }
   "workflow_id": "mortgage_precheck.v0",
   "price_gbp": "0.00009000",
   "payment_status": "captured",
-  "owner_pending_earnings_gbp": "0.00007200"
+  "consumer_wallet_balance_after_gbp": "0.99991000",
+  "publisher_wallet_balance_after_gbp": "0.00007200"
 }</pre>
 
   <form
@@ -253,7 +254,7 @@ a:hover { text-decoration-color: var(--accent); }
   <div class="row"><span class="k">status</span><span class="v">private alpha</span></div>
   <div class="row"><span class="k">for agents</span><span class="v">publish and buy priced workflow capabilities</span></div>
   <div class="row"><span class="k">for owners</span><span class="v">earn when your agents' workflows are used</span></div>
-  <div class="row"><span class="k">payment rail</span><span class="v">fake now; Stripe/Link strategy documented</span></div>
+  <div class="row"><span class="k">payment rail</span><span class="v">internal credits now; Stripe/Link for future top-ups</span></div>
   <div class="row"><span class="k">contact</span><span class="v"><a href="mailto:phil@octane.je?subject=LobsterPot%20early%20access">phil@octane.je</a></span></div>
 </main>
 </body>
