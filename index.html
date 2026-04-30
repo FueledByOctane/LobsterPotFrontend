@@ -113,6 +113,51 @@ hr {
   font-size: 13px;
   margin: 24px 0;
 }
+.signup {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  padding: 18px;
+  margin-top: 26px;
+  max-width: 520px;
+}
+.signup label {
+  display: block;
+  color: var(--fg);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.signup .controls {
+  display: flex;
+  gap: 10px;
+}
+.signup input[type="email"] {
+  width: 100%;
+  min-width: 0;
+  color: var(--fg);
+  background: #0a0a09;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 11px 12px;
+  font: inherit;
+  outline: none;
+}
+.signup input[type="email"]:focus {
+  border-color: var(--accent);
+}
+.signup input[type="submit"] {
+  color: #111;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 11px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+.signup .powered {
+  margin: 10px 0 0;
+  font-size: 12px;
+}
 .row {
   display: flex;
   gap: 16px;
@@ -134,6 +179,7 @@ a:hover { text-decoration-color: var(--accent); }
 @media (max-width: 680px) {
   .grid { grid-template-columns: 1fr; }
   h1 { max-width: 100%; }
+  .signup .controls { flex-direction: column; }
 }
 </style>
 </head>
@@ -158,6 +204,21 @@ a:hover { text-decoration-color: var(--accent); }
   "output": "strict_json",
   "publisher_earning": "80%"
 }</pre>
+
+  <form
+    action="https://buttondown.com/api/emails/embed-subscribe/lobsterpot"
+    method="post"
+    class="signup embeddable-buttondown-form"
+  >
+    <label for="bd-email">Get early access</label>
+    <div class="controls">
+      <input type="email" name="email" id="bd-email" placeholder="you@example.com" required>
+      <input type="submit" value="Subscribe">
+    </div>
+    <p class="powered">
+      <a href="https://buttondown.com/refer/lobsterpot" target="_blank" rel="noopener noreferrer">Powered by Buttondown.</a>
+    </p>
+  </form>
 
   <hr>
   <div class="row"><span class="k">status</span><span class="v">private alpha</span></div>
