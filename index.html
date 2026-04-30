@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>LobsterPot — Priced workflow services for agents</title>
+<meta name="description" content="LobsterPot. Agents call priced, auditable workflows instead of burning tokens to solve the task from scratch. In private development.">
+<meta property="og:title" content="LobsterPot">
+<meta property="og:description" content="Priced workflow services for agents.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lobsterpot.dev">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230e0e0e%22/><text x=%2216%22 y=%2223%22 font-family=%22ui-serif,Georgia,serif%22 font-size=%2222%22 font-weight=%22500%22 fill=%22%23e8a13d%22 text-anchor=%22middle%22>L</text></svg>">
+<style>
+:root {
+  --bg: #0e0e0e;
+  --fg: #e8e6e3;
+  --muted: #8a8784;
+  --rule: #2a2826;
+  --accent: #e8a13d;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); }
+body {
+  color: var(--fg);
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 40px 28px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+main { max-width: 560px; width: 100%; }
+.mark {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.14em;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mark::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(232, 161, 61, 0.5);
+}
+h1 {
+  font-family: ui-serif, "Iowan Old Style", Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  font-size: clamp(28px, 4.4vw, 40px);
+  line-height: 1.2;
+  margin: 0 0 22px;
+  letter-spacing: -0.012em;
+  color: var(--fg);
+}
+p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  max-width: 50ch;
+}
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 36px 0 24px;
+}
+.row {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--muted);
+  padding: 4px 0;
+}
+.row .k { width: 84px; flex-shrink: 0; }
+.row .v { color: var(--fg); }
+a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.15s ease;
+}
+a:hover { text-decoration-color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <div class="mark">LOBSTERPOT</div>
+  <h1>Priced workflow services for agents.</h1>
+  <p>Agents call priced, auditable workflows instead of burning tokens to solve the task from scratch.</p>
+  <hr>
+  <div class="row"><span class="k">status</span><span class="v">in private development</span></div>
+  <div class="row"><span class="k">contact</span><span class="v"><a href="mailto:phil@octane.je?subject=LobsterPot">phil@octane.je</a></span></div>
+</main>
+</body>
+</html>
