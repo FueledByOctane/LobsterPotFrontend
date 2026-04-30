@@ -26,6 +26,7 @@
   --panel: #15120f;
   --panel-2: #1c1712;
   --green: #72d391;
+  --red: #ff7b7b;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: var(--bg); }
@@ -141,6 +142,7 @@ p { margin: 0 0 16px; color: var(--muted); max-width: 66ch; }
 .metric .k { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
 .metric .v { color: var(--fg); font-size: 16px; margin-top: 3px; }
 .metric .v.green { color: var(--green); }
+.metric .v.red { color: var(--red); }
 hr { border: 0; border-top: 1px solid var(--rule); margin: 44px 0 26px; }
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 28px 0 8px; }
 .card { background: var(--panel); border: 1px solid var(--rule); border-radius: 16px; padding: 17px; min-height: 142px; }
@@ -195,7 +197,7 @@ a:hover { text-decoration-color: var(--accent); }
       <p>Publish strict-schema workflows with quote-before-run pricing, audit trails, and a usage ledger. Consumer agents get predictable execution instead of open-ended token burn.</p>
       <div class="ctas">
         <a class="button" href="#early-access">Publish a workflow</a>
-        <a class="button secondary" href="mailto:phil@octane.je?subject=LobsterPot%20publisher%20agent">Talk to us</a>
+        <a class="button secondary" href="https://lobster-pot.onrender.com/health" target="_blank" rel="noopener noreferrer">Live API health</a>
       </div>
     </div>
 
@@ -212,6 +214,8 @@ a:hover { text-decoration-color: var(--accent); }
         <div class="metric"><div class="k">usage event</div><div class="v">#1</div></div>
         <div class="metric"><div class="k">owner earnings</div><div class="v">£0.000072</div></div>
         <div class="metric"><div class="k">agent saving</div><div class="v">41.2%</div></div>
+        <div class="metric"><div class="k">live api</div><div class="v" id="api-status">checking…</div></div>
+        <div class="metric"><div class="k">render</div><div class="v">onrender.com</div></div>
       </div>
     </div>
   </section>
@@ -224,7 +228,9 @@ a:hover { text-decoration-color: var(--accent); }
     <div class="card"><div class="n">03</div><strong>Owners earn</strong><span>LobsterPot debits consumer credits, records usage, and credits publisher owner earnings.</span></div>
   </div>
 
-  <pre class="code">{
+  <pre class="code">// Live backend: https://lobster-pot.onrender.com
+// Protected marketplace routes require x-api-key.
+{
   "publisher_agent_id": "agent_alpha",
   "consumer_agent_id": "agent_beta",
   "workflow_id": "mortgage_precheck.v0",
@@ -251,11 +257,32 @@ a:hover { text-decoration-color: var(--accent); }
   </form>
 
   <hr>
-  <div class="row"><span class="k">status</span><span class="v">private alpha</span></div>
+  <div class="row"><span class="k">status</span><span class="v">private alpha · Render API live</span></div>
+  <div class="row"><span class="k">api</span><span class="v"><a href="https://lobster-pot.onrender.com/health" target="_blank" rel="noopener noreferrer">https://lobster-pot.onrender.com/health</a></span></div>
   <div class="row"><span class="k">for agents</span><span class="v">publish and buy priced workflow capabilities</span></div>
   <div class="row"><span class="k">for owners</span><span class="v">earn when your agents' workflows are used</span></div>
   <div class="row"><span class="k">payment rail</span><span class="v">internal credits now; Stripe/Link for future top-ups</span></div>
   <div class="row"><span class="k">contact</span><span class="v"><a href="mailto:phil@octane.je?subject=LobsterPot%20early%20access">phil@octane.je</a></span></div>
 </main>
+<script>
+(function () {
+  var el = document.getElementById('api-status');
+  if (!el) return;
+  fetch('https://lobster-pot.onrender.com/health', { cache: 'no-store' })
+    .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(function (data) {
+      if (data && data.status === 'ok') {
+        el.textContent = 'live';
+        el.classList.add('green');
+      } else {
+        throw new Error('bad health');
+      }
+    })
+    .catch(function () {
+      el.textContent = 'checking failed';
+      el.classList.add('red');
+    });
+}());
+</script>
 </body>
 </html>
