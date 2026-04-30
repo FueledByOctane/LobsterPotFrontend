@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
-<title>LobsterPot — Priced workflow services for agents</title>
-<meta name="description" content="LobsterPot. Agents call priced, auditable workflows instead of burning tokens to solve the task from scratch. In private development.">
+<title>LobsterPot — Predictable workflow pricing for agents</title>
+<meta name="description" content="LobsterPot lets agents discover, quote, and run priced workflows instead of gambling on open-ended token burn.">
 <meta property="og:title" content="LobsterPot">
-<meta property="og:description" content="Priced workflow services for agents.">
+<meta property="og:description" content="Predictable, per-use workflow pricing for agents.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lobsterpot.dev">
 <meta name="twitter:card" content="summary">
@@ -19,6 +19,7 @@
   --muted: #8a8784;
   --rule: #2a2826;
   --accent: #e8a13d;
+  --panel: #151412;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: var(--bg); }
@@ -34,7 +35,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-main { max-width: 560px; width: 100%; }
+main { max-width: 720px; width: 100%; }
 .mark {
   font-size: 12px;
   color: var(--muted);
@@ -55,21 +56,62 @@ main { max-width: 560px; width: 100%; }
 h1 {
   font-family: ui-serif, "Iowan Old Style", Georgia, "Times New Roman", serif;
   font-weight: 500;
-  font-size: clamp(28px, 4.4vw, 40px);
-  line-height: 1.2;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.08;
   margin: 0 0 22px;
-  letter-spacing: -0.012em;
+  letter-spacing: -0.025em;
   color: var(--fg);
+  max-width: 11ch;
 }
 p {
   margin: 0 0 16px;
   color: var(--muted);
-  max-width: 50ch;
+  max-width: 62ch;
+}
+.lede {
+  font-size: clamp(16px, 2vw, 19px);
+  color: #c9c5c0;
+  max-width: 58ch;
 }
 hr {
   border: 0;
   border-top: 1px solid var(--rule);
   margin: 36px 0 24px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 28px 0 8px;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 16px;
+  min-height: 124px;
+}
+.card .n {
+  color: var(--accent);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.card strong {
+  display: block;
+  color: var(--fg);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.card span { color: var(--muted); font-size: 13px; }
+.code {
+  background: #0a0a09;
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 16px;
+  overflow-x: auto;
+  color: #d8d4ce;
+  font-size: 13px;
+  margin: 24px 0;
 }
 .row {
   display: flex;
@@ -78,7 +120,7 @@ hr {
   color: var(--muted);
   padding: 4px 0;
 }
-.row .k { width: 84px; flex-shrink: 0; }
+.row .k { width: 94px; flex-shrink: 0; }
 .row .v { color: var(--fg); }
 a {
   color: var(--fg);
@@ -89,16 +131,39 @@ a {
   transition: text-decoration-color 0.15s ease;
 }
 a:hover { text-decoration-color: var(--accent); }
+@media (max-width: 680px) {
+  .grid { grid-template-columns: 1fr; }
+  h1 { max-width: 100%; }
+}
 </style>
 </head>
 <body>
 <main>
   <div class="mark">LOBSTERPOT</div>
-  <h1>Priced workflow services for agents.</h1>
-  <p>Agents call priced, auditable workflows instead of burning tokens to solve the task from scratch.</p>
+  <h1>Predictable workflow pricing for agents.</h1>
+  <p class="lede">Agents discover, quote, and run specialist workflows instead of gambling on open-ended token burn.</p>
+  <p>LobsterPot is a per-use marketplace for agent workflows: fixed-price execution, strict JSON contracts, audit logs, and publisher earnings.</p>
+
+  <div class="grid" aria-label="How LobsterPot works">
+    <div class="card"><div class="n">01</div><strong>Quote before run</strong><span>Agents see price, schema, and cost-saving signal before spending compute.</span></div>
+    <div class="card"><div class="n">02</div><strong>Run the workflow</strong><span>Specialist workflows return structured output with transparent audit trails.</span></div>
+    <div class="card"><div class="n">03</div><strong>Pay per use</strong><span>Consumers pay per successful call. Publishers earn for workflows they list.</span></div>
+  </div>
+
+  <pre class="code">{
+  "workflow": "mortgage_precheck.v0",
+  "price_gbp": "0.0009",
+  "max_price_guard": "0.0015",
+  "is_cost_saving": true,
+  "output": "strict_json",
+  "publisher_earning": "80%"
+}</pre>
+
   <hr>
-  <div class="row"><span class="k">status</span><span class="v">in private development</span></div>
-  <div class="row"><span class="k">contact</span><span class="v"><a href="mailto:phil@octane.je?subject=LobsterPot">phil@octane.je</a></span></div>
+  <div class="row"><span class="k">status</span><span class="v">private alpha</span></div>
+  <div class="row"><span class="k">for agents</span><span class="v">buy predictable workflow execution</span></div>
+  <div class="row"><span class="k">for builders</span><span class="v">publish workflows and earn per use</span></div>
+  <div class="row"><span class="k">contact</span><span class="v"><a href="mailto:phil@octane.je?subject=LobsterPot%20early%20access">phil@octane.je</a></span></div>
 </main>
 </body>
 </html>
