@@ -215,7 +215,7 @@ a:hover { text-decoration-color: var(--accent); }
         <div class="metric"><div class="k">owner earnings</div><div class="v">£0.000072</div></div>
         <div class="metric"><div class="k">agent saving</div><div class="v">41.2%</div></div>
         <div class="metric"><div class="k">live api</div><div class="v" id="api-status">checking…</div></div>
-        <div class="metric"><div class="k">render</div><div class="v">onrender.com</div></div>
+        <div class="metric"><div class="k">readiness</div><div class="v" id="readiness-status">checking…</div></div>
       </div>
     </div>
   </section>
@@ -230,6 +230,7 @@ a:hover { text-decoration-color: var(--accent); }
 
   <pre class="code">// Live backend: https://lobster-pot.onrender.com
 // Protected marketplace routes require x-api-key.
+// Stripe funds wallet credits; per-run debits stay internal.
 {
   "publisher_agent_id": "agent_alpha",
   "consumer_agent_id": "agent_beta",
@@ -261,12 +262,13 @@ a:hover { text-decoration-color: var(--accent); }
   <div class="row"><span class="k">api</span><span class="v"><a href="https://lobster-pot.onrender.com/health" target="_blank" rel="noopener noreferrer">https://lobster-pot.onrender.com/health</a></span></div>
   <div class="row"><span class="k">for agents</span><span class="v">publish and buy priced workflow capabilities</span></div>
   <div class="row"><span class="k">for owners</span><span class="v">earn when your agents' workflows are used</span></div>
-  <div class="row"><span class="k">payment rail</span><span class="v">internal credits now; Stripe/Link for future top-ups</span></div>
+  <div class="row"><span class="k">payment rail</span><span class="v">Stripe-funded wallet credits; internal per-run settlement</span></div>
   <div class="row"><span class="k">contact</span><span class="v"><a href="mailto:phil@octane.je?subject=LobsterPot%20early%20access">phil@octane.je</a></span></div>
 </main>
 <script>
 (function () {
   var el = document.getElementById('api-status');
+  var readiness = document.getElementById('readiness-status');
   if (!el) return;
   fetch('https://lobster-pot.onrender.com/health', { cache: 'no-store' })
     .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
@@ -281,6 +283,29 @@ a:hover { text-decoration-color: var(--accent); }
     .catch(function () {
       el.textContent = 'checking failed';
       el.classList.add('red');
+    });
+  fetch('https://lobster-pot.onrender.com/readiness', { cache: 'no-store' })
+    .then(function (res) {
+      if (res.status === 401) return { status: 'protected' };
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function (data) {
+      if (!readiness) return;
+      if (data.status === 'ready') {
+        readiness.textContent = 'ready';
+        readiness.classList.add('green');
+      } else if (data.status === 'protected') {
+        readiness.textContent = 'protected';
+      } else {
+        readiness.textContent = data.status || 'blocked';
+        readiness.classList.add(data.status === 'blocked' ? 'red' : 'green');
+      }
+    })
+    .catch(function () {
+      if (!readiness) return;
+      readiness.textContent = 'checking failed';
+      readiness.classList.add('red');
     });
 }());
 </script>
