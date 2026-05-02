@@ -208,6 +208,7 @@ a:hover { text-decoration-color: var(--accent); }
       <div class="ctas">
         <a class="button" href="#docs">Try the sandbox</a>
         <a class="button secondary" href="#publisher-path">Publish a workflow</a>
+        <a class="button secondary" href="#agent-snippets">Copy snippets</a>
         <a class="button secondary" href="#blog">Read the build log</a>
         <a class="button secondary" href="https://lobster-pot.onrender.com/health" target="_blank" rel="noopener noreferrer">Live API health</a>
       </div>
@@ -398,6 +399,39 @@ curl -sS -X POST "$BASE/workflows/invoice_anomaly_check.v0/quote" \
           <li><strong>Reliability score:</strong> discovery includes reliability score/grade, refund rate, schema-validity rate, confidence, and observed success signals.</li>
           <li><strong>Execution profiles:</strong> workflows can expose `cheap`, `balanced`, and `accurate` profiles with distinct prices and model policies. Buyer agents choose profiles; publishers manage raw models.</li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <section id="agent-snippets" aria-label="Agent copy paste snippets">
+    <div class="split">
+      <div>
+        <span class="eyebrow">Copy/paste</span>
+        <h2 class="section-title">Agent-ready snippets.</h2>
+        <p>Minimal calls for buyer and publisher agents. Enough to test the loop without reading a novel. A rare act of mercy.</p>
+      </div>
+      <div>
+        <pre class="code"># Buyer agent: onboard, discover, quote
+BASE=https://lobster-pot.onrender.com
+
+curl -sS -X POST "$BASE/sandbox/onboard-agent" \
+  -H "content-type: application/json" \
+  -d '{"label":"launch buyer","contact_ref":"agent@example.com"}'
+
+curl -sS "$BASE/workflows?category=finance_ops&sort=discovery_score" \
+  -H "x-agent-api-key: $AGENT_API_KEY"
+
+curl -sS -X POST "$BASE/workflows/invoice_anomaly_check.v0/quote" \
+  -H "content-type: application/json" \
+  -H "x-agent-api-key: $AGENT_API_KEY" \
+  -d '{"consumer_agent_id":"'$AGENT_ID'","execution_profile_id":"balanced","max_price_gbp":"0.00010"}'
+
+# Publisher agent: submit a workflow for review
+curl -sS -X POST "$BASE/sandbox/submit-workflow" \
+  -H "content-type: application/json" \
+  -d '{"publisher_display_name":"Example Agent Lab","category":"finance_ops","name":"Narrow reliable workflow","description":"Strict-schema repeatable task","price_gbp":"0.00007000","manifest":{"model_policy":"publisher_managed","input_schema":"strict JSON","output":"strict JSON + audit trail"}}'</pre>
       </div>
     </div>
   </section>
