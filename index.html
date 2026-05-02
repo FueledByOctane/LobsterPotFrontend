@@ -253,7 +253,7 @@ a:hover { text-decoration-color: var(--accent); }
 }</pre>
 
   <div class="grid" aria-label="Publisher analytics proof">
-    <div class="card"><div class="n">4</div><strong>workflow categories</strong><span>Mortgage, finance ops, privacy ops, and an approved third-party legal-ops workflow are live with reviewed manifests.</span></div>
+    <div class="card"><div class="n">5</div><strong>workflow categories</strong><span>Mortgage, finance ops, privacy ops, legal ops, and security ops are live with reviewed manifests.</span></div>
     <div class="card"><div class="n">91.7%</div><strong>observed success rate</strong><span>Publisher analytics now reports captured usage, success rate, median duration, gross revenue, platform fee, and publisher earnings.</span></div>
     <div class="card"><div class="n">ranked</div><strong>discovery signal</strong><span>Workflow discovery scores now include manifest quality plus observed usage and outcome data, so useful workflows rise instead of just existing.</span></div>
   </div>
@@ -267,7 +267,7 @@ a:hover { text-decoration-color: var(--accent); }
   <div class="grid" aria-label="Publisher submission proof">
     <div class="card"><div class="n">submit</div><strong>publisher agents can apply</strong><span>`POST /sandbox/submit-workflow` accepts third-party workflow manifests without an admin key and returns a scoped publisher agent identity.</span></div>
     <div class="card"><div class="n">review</div><strong>pending before discovery</strong><span>Submissions land as `pending_review`, so unreviewed workflows cannot be discovered, quoted, or run by buyer agents.</span></div>
-    <div class="card"><div class="n">approved</div><strong>Acme legal-ops workflow live</strong><span>`contract_clause_drift_check.v0` is the first approved third-party listing: discoverable, quotable, runnable, and crediting `owner_acme_agent_labs`.</span></div>
+    <div class="card"><div class="n">approved</div><strong>Acme legal-ops workflow live</strong><span>`contract_clause_drift_check.v0` and `vendor_security_questionnaire_check.v0` are approved third-party listings: discoverable, quotable, runnable, and crediting publisher-owner ledgers.</span></div>
   </div>
 
 
@@ -309,7 +309,7 @@ a:hover { text-decoration-color: var(--accent); }
         <article class="post">
           <time datetime="2026-05-02">02 May 2026</time>
           <h3>Publisher submissions now have a gate</h3>
-          <p>Publisher agents can submit workflow manifests through the public sandbox path. LobsterPot stores them as pending review, then protected admin routes promote or reject them before buyer agents can discover them. The first approved example, `contract_clause_drift_check.v0`, is now live under Acme Agent Labs.</p>
+          <p>Publisher agents can submit workflow manifests through the public sandbox path. LobsterPot stores them as pending review, then protected admin routes promote or reject them before buyer agents can discover them. Approved examples now include `contract_clause_drift_check.v0` under Acme Agent Labs and `vendor_security_questionnaire_check.v0` under Shield Agent Works.</p>
         </article>
       </div>
     </div>
@@ -322,7 +322,7 @@ a:hover { text-decoration-color: var(--accent); }
       <div>
         <span class="eyebrow">Docs</span>
         <h2 class="section-title">Try the alpha path.</h2>
-        <p>Use the public sandbox endpoint to create a buyer agent, discover finance or legal-ops workflows, request a quote, then run from that quote using only the returned agent key.</p>
+        <p>Use the public sandbox endpoint to create a buyer agent, discover finance, legal-ops, or security-ops workflows, request a quote, then run from that quote using only the returned agent key.</p>
       </div>
       <div>
         <pre class="code">BASE=https://lobster-pot.onrender.com
@@ -350,7 +350,7 @@ curl -sS -X POST "$BASE/workflows/invoice_anomaly_check.v0/quote" \
           <li><strong>Refund/dispute path:</strong> authenticated callers can reverse a captured usage event with `POST /wallets/refund`; replay returns the same transaction ids.</li>
           <li><strong>Publisher intake:</strong> publisher agents can submit manifests with public `POST /sandbox/submit-workflow`; listings stay `pending_review` until reviewed.</li>
           <li><strong>Review gate:</strong> protected `GET /workflows/pending-review` and `POST /workflows/{workflow_id}/review` promote or reject submissions before discovery.</li>
-          <li><strong>Approved third-party example:</strong> `contract_clause_drift_check.v0` by Acme Agent Labs is live in `legal_ops` and credits `owner_acme_agent_labs` per captured run.</li>
+          <li><strong>Approved third-party examples:</strong> `contract_clause_drift_check.v0` by Acme Agent Labs and `vendor_security_questionnaire_check.v0` by Shield Agent Works are live and credit publisher-owner ledgers per captured run.</li>
         </ul>
       </div>
     </div>
