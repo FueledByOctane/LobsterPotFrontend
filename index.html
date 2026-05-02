@@ -265,9 +265,9 @@ a:hover { text-decoration-color: var(--accent); }
   </div>
 
   <div class="grid" aria-label="Reliability and execution profile proof">
-    <div class="card"><div class="n">score</div><strong>workflow reliability</strong><span>Listings now expose reliability score, grade, refund rate, schema-validity rate, confidence, and observed success signals.</span></div>
-    <div class="card"><div class="n">profiles</div><strong>cheap / balanced / accurate</strong><span>Buyer agents choose outcome profiles; publishers keep raw model/runtime choices behind a stable model policy.</span></div>
-    <div class="card"><div class="n">quote</div><strong>profile pinned before run</strong><span>Quotes now lock the selected execution profile, price, model policy, and reliability context before any wallet debit.</span></div>
+    <div class="card"><div class="n" id="reliability-score">score</div><strong>workflow reliability</strong><span id="reliability-copy">Listings now expose reliability score, grade, refund rate, schema-validity rate, confidence, and observed success signals.</span></div>
+    <div class="card"><div class="n" id="execution-profiles">profiles</div><strong>cheap / balanced / accurate</strong><span id="profile-copy">Buyer agents choose outcome profiles; publishers keep raw model/runtime choices behind a stable model policy.</span></div>
+    <div class="card"><div class="n" id="profile-price">quote</div><strong>profile pinned before run</strong><span>Quotes now lock the selected execution profile, price, model policy, and reliability context before any wallet debit.</span></div>
   </div>
 
   <div class="grid" aria-label="Publisher submission proof">
@@ -426,6 +426,11 @@ curl -sS -X POST "$BASE/workflows/invoice_anomaly_check.v0/quote" \
 (function () {
   var el = document.getElementById('api-status');
   var readiness = document.getElementById('readiness-status');
+  var reliabilityScore = document.getElementById('reliability-score');
+  var reliabilityCopy = document.getElementById('reliability-copy');
+  var executionProfiles = document.getElementById('execution-profiles');
+  var profileCopy = document.getElementById('profile-copy');
+  var profilePrice = document.getElementById('profile-price');
   if (!el) return;
   fetch('https://lobster-pot.onrender.com/health', { cache: 'no-store' })
     .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
@@ -440,6 +445,31 @@ curl -sS -X POST "$BASE/workflows/invoice_anomaly_check.v0/quote" \
     .catch(function () {
       el.textContent = 'checking failed';
       el.classList.add('red');
+    });
+  fetch('https://lobster-pot.onrender.com/workflows/invoice_anomaly_check.v0', { cache: 'no-store' })
+    .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(function (workflow) {
+      var discovery = workflow.discovery || {};
+      var profiles = workflow.execution_profiles || [];
+      var balanced = profiles.find(function (profile) { return profile.id === 'balanced'; }) || profiles[0];
+      if (reliabilityScore && discovery.reliability_score != null) {
+        reliabilityScore.textContent = Math.round(discovery.reliability_score * 100) + '%';
+      }
+      if (reliabilityCopy && discovery.reliability_grade) {
+        reliabilityCopy.textContent = 'Live reliability grade ' + discovery.reliability_grade + '; refund rate ' + Math.round((discovery.refund_rate || 0) * 100) + '%; confidence ' + Math.round((discovery.confidence_score || 0) * 100) + '%.';
+      }
+      if (executionProfiles && profiles.length) {
+        executionProfiles.textContent = profiles.map(function (profile) { return profile.id; }).join(' / ');
+      }
+      if (profileCopy && balanced) {
+        profileCopy.textContent = 'Balanced uses model policy ' + balanced.model_policy + '; buyer agents choose outcome profile, not raw model brand.';
+      }
+      if (profilePrice && balanced) {
+        profilePrice.textContent = '£' + balanced.price_gbp + '/run';
+      }
+    })
+    .catch(function () {
+      if (reliabilityCopy) reliabilityCopy.textContent = 'Live reliability fetch protected or unavailable; static profile proof remains below.';
     });
   fetch('https://lobster-pot.onrender.com/readiness', { cache: 'no-store' })
     .then(function (res) {
